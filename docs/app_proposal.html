@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LearnHub – App Proposal</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; color: #1e293b; background: #fff; }
+
+  /* ── Cover ── */
+  .cover {
+    background: linear-gradient(135deg, #4f46e5 0%, #14b8a6 100%);
+    color: #fff; padding: 80px 60px; min-height: 260px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .cover .logo { display: flex; align-items: center; gap: 14px; margin-bottom: 32px; }
+  .cover .logo-icon {
+    width: 52px; height: 52px; border-radius: 12px;
+    background: rgba(255,255,255,0.18);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px;
+  }
+  .cover .logo-text { font-size: 32px; font-weight: 800; }
+  .cover h1 { font-size: 42px; font-weight: 800; line-height: 1.2; margin-bottom: 12px; }
+  .cover p  { font-size: 16px; opacity: 0.88; }
+  .cover .meta { margin-top: 40px; font-size: 14px; opacity: 0.75; }
+
+  /* ── Body ── */
+  .content { max-width: 860px; margin: 0 auto; padding: 56px 48px; }
+
+  h2 { font-size: 24px; font-weight: 700; color: #4f46e5; margin: 48px 0 16px;
+       border-bottom: 2px solid #eef2ff; padding-bottom: 8px; }
+  h3 { font-size: 17px; font-weight: 700; color: #1e293b; margin: 24px 0 8px; }
+  p  { font-size: 15px; line-height: 1.7; color: #334155; margin-bottom: 12px; }
+  ul, ol { padding-left: 22px; margin-bottom: 12px; }
+  li { font-size: 15px; line-height: 1.8; color: #334155; }
+
+  /* ── Tables ── */
+  table { width: 100%; border-collapse: collapse; margin: 16px 0 24px; font-size: 14px; }
+  th { background: #4f46e5; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; }
+  td { padding: 10px 14px; border-bottom: 1px solid #e7e9f3; vertical-align: top; }
+  tr:nth-child(even) td { background: #f7f8fc; }
+
+  /* ── Journey boxes ── */
+  .journey { border-left: 4px solid #4f46e5; background: #f7f8fc;
+             border-radius: 0 12px 12px 0; padding: 20px 24px; margin: 20px 0; }
+  .journey h4 { font-size: 15px; font-weight: 700; color: #4f46e5; margin-bottom: 12px; }
+  .step { display: flex; gap: 14px; margin-bottom: 10px; align-items: flex-start; }
+  .step-num {
+    min-width: 28px; height: 28px; border-radius: 50%;
+    background: #4f46e5; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; flex-shrink: 0;
+  }
+  .step-text { font-size: 14px; line-height: 1.6; color: #334155; padding-top: 4px; }
+
+  /* ── Wireframes ── */
+  .wireframe-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 24px 0; }
+  .wf-card { border: 2px solid #e7e9f3; border-radius: 16px; overflow: hidden; }
+  .wf-title { background: #4f46e5; color: #fff; padding: 10px 16px;
+              font-size: 13px; font-weight: 700; letter-spacing: 0.4px; }
+  .wf-body { padding: 20px 16px; background: #fff; }
+
+  /* ASCII wireframe styling */
+  .wf-frame {
+    border: 1.5px solid #94a3b8; border-radius: 8px;
+    padding: 12px; font-family: 'Courier New', monospace;
+    font-size: 11px; line-height: 1.55; color: #475569;
+    background: #f8fafc; white-space: pre;
+  }
+
+  /* ── Nav flow ── */
+  .nav-flow { background: #f7f8fc; border-radius: 12px; padding: 24px;
+              font-family: 'Courier New', monospace; font-size: 13px;
+              line-height: 1.8; color: #334155; margin: 16px 0; }
+
+  /* ── Badges ── */
+  .badge {
+    display: inline-block; padding: 3px 10px; border-radius: 20px;
+    font-size: 12px; font-weight: 600; margin: 2px 4px 2px 0;
+  }
+  .badge-indigo { background: #eef2ff; color: #4f46e5; }
+  .badge-teal   { background: #f0fdfa; color: #0d9488; }
+  .badge-gray   { background: #f1f5f9; color: #475569; }
+
+  /* ── Footer ── */
+  .footer { text-align: center; padding: 40px; color: #94a3b8; font-size: 13px;
+            border-top: 1px solid #e7e9f3; margin-top: 40px; }
+
+  @media print {
+    .cover { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    th     { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .journey, .nav-flow, .wf-title, .badge { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════ COVER ═══════════════════════════ -->
+<div class="cover">
+  <div class="logo">
+    <div class="logo-icon">📚</div>
+    <span class="logo-text">LearnHub</span>
+  </div>
+  <h1>App Proposal Document</h1>
+  <p>A cross-platform Learning Management System built with Flutter</p>
+  <div class="meta">Week 1 Submission &nbsp;·&nbsp; Flutter LMS Project &nbsp;·&nbsp; 2026</div>
+</div>
+
+<div class="content">
+
+<!-- ═══════════════════════════ 1. PURPOSE ═══════════════════════════ -->
+<h2>1. Purpose of the App</h2>
+
+<p>
+  <strong>LearnHub</strong> is a cross-platform Learning Management System (LMS) built with Flutter.
+  Its core purpose is to connect learners with structured, skill-building programs in a clean,
+  distraction-free environment — accessible on mobile phones, tablets, and desktop browsers.
+</p>
+<p>
+  The platform solves a common problem: learners often struggle to find, track, and complete
+  online courses in one unified place. LearnHub brings together program discovery, progress
+  tracking, and achievement recognition in a single cohesive app.
+</p>
+
+<h3>Problem Statement</h3>
+<p>
+  Many learners lose motivation because they lack visibility into their progress and have no
+  centralised place to manage their learning. LearnHub addresses this by providing a personalised
+  dashboard, clear progress indicators, and an achievement system that rewards continued learning.
+</p>
+
+<h3>Solution</h3>
+<ul>
+  <li>A clean login screen that gets learners into the app without friction</li>
+  <li>A home dashboard showing current progress, popular programs, and earned achievements</li>
+  <li>A searchable, filterable program catalog for easy discovery</li>
+  <li>Detailed program pages with curriculum overview and a one-tap enrolment button</li>
+  <li>A responsive UI that works equally well on phones, tablets, and desktop</li>
+</ul>
+
+
+<!-- ═══════════════════════════ 2. TARGET USERS ═══════════════════════════ -->
+<h2>2. Target Users</h2>
+
+<table>
+  <tr>
+    <th>User Type</th>
+    <th>Description</th>
+    <th>Primary Goals</th>
+  </tr>
+  <tr>
+    <td><strong>Learner</strong> <span class="badge badge-indigo">Primary</span></td>
+    <td>Students, working professionals, or anyone upskilling in tech, design, or marketing</td>
+    <td>Find programs, track progress, earn certificates</td>
+  </tr>
+  <tr>
+    <td><strong>Admin</strong> <span class="badge badge-teal">Planned</span></td>
+    <td>Platform manager who creates content and manages enrolled users</td>
+    <td>Create/edit programs, view enrolment data, manage users</td>
+  </tr>
+</table>
+
+<h3>Learner Persona</h3>
+<p>
+  <strong>Kavya, 24 — Junior Software Developer</strong><br/>
+  Kavya wants to grow her Flutter skills after hours. She needs a mobile-friendly app she can
+  use on her commute, with clear progress tracking so she stays motivated. She values a clean
+  UI that doesn't get in the way of learning.
+</p>
+
+<h3>Admin Persona</h3>
+<p>
+  <strong>Rahul, 35 — Content Manager</strong><br/>
+  Rahul manages the course catalogue. He needs to add new programs, see how many learners are
+  enrolled, and track completion rates. He primarily uses a desktop browser.
+</p>
+
+
+<!-- ═══════════════════════════ 3. KEY FEATURES ═══════════════════════════ -->
+<h2>3. Key Features</h2>
+
+<h3>Learner Features (Week 1 — Implemented)</h3>
+<table>
+  <tr><th>Feature</th><th>Screen</th><th>Description</th></tr>
+  <tr><td>Login</td><td>Login Screen</td><td>Email + password form, show/hide password toggle, forgot password link, sign-up prompt</td></tr>
+  <tr><td>Dashboard</td><td>Home Screen</td><td>Personalised greeting, in-progress course card with progress bar, popular programs grid, achievement stats</td></tr>
+  <tr><td>Program Discovery</td><td>Program List</td><td>Search bar, horizontal category filter chips (All / Development / Design / Marketing / Data Science), responsive program grid</td></tr>
+  <tr><td>Program Detail</td><td>Program Detail</td><td>Hero gradient header, rating, category badge, description, lesson/hour/level chips, "What you'll learn" checklist, Enrol Now button</td></tr>
+  <tr><td>Responsive Layout</td><td>All Screens</td><td>Mobile single-column, tablet 2-column, desktop split/wide layouts using custom breakpoint helpers</td></tr>
+</table>
+
+<h3>Planned Features (Future Weeks)</h3>
+<ul>
+  <li>User registration and profile management</li>
+  <li>Real authentication (Firebase Auth)</li>
+  <li>In-app lesson player with video support</li>
+  <li>Certificate generation on course completion</li>
+  <li>Admin dashboard for program and user management</li>
+  <li>Push notifications for learning reminders</li>
+  <li>Offline support for downloaded lessons</li>
+</ul>
+
+
+<!-- ═══════════════════════════ 4. USER JOURNEYS ═══════════════════════════ -->
+<h2>4. User Journey Examples</h2>
+
+<div class="journey">
+  <h4>🎓 Learner Journey — Discover and Enrol in a Program</h4>
+  <div class="step"><div class="step-num">1</div><div class="step-text"><strong>Open app</strong> — The Login screen loads. Kavya enters her email and password, taps <em>Log In</em>.</div></div>
+  <div class="step"><div class="step-num">2</div><div class="step-text"><strong>Home Dashboard</strong> — She sees her in-progress "Flutter Development Basics" course at 75%, and a grid of popular programs.</div></div>
+  <div class="step"><div class="step-num">3</div><div class="step-text"><strong>Browse Programs</strong> — She taps the <em>Explore</em> nav item, lands on the Program List. She types "Python" in the search bar and taps the <em>Development</em> category chip.</div></div>
+  <div class="step"><div class="step-num">4</div><div class="step-text"><strong>View Details</strong> — She taps <em>Python for Beginners</em>, which opens the Program Detail screen showing 25 lessons, 15 hours, Beginner level, and a curriculum checklist.</div></div>
+  <div class="step"><div class="step-num">5</div><div class="step-text"><strong>Enrol</strong> — She taps <em>Enrol Now</em>. A confirmation snackbar appears: <em>"Enrolled in program!"</em>. The program now appears in her dashboard.</div></div>
+</div>
+
+<div class="journey">
+  <h4>🛠️ Admin Journey — Add a New Program <span class="badge badge-teal">Planned</span></h4>
+  <div class="step"><div class="step-num">1</div><div class="step-text"><strong>Admin Login</strong> — Rahul logs in via the admin portal with his credentials.</div></div>
+  <div class="step"><div class="step-num">2</div><div class="step-text"><strong>Program Management</strong> — He navigates to the <em>Programs</em> section of the admin dashboard and taps <em>+ Add Program</em>.</div></div>
+  <div class="step"><div class="step-num">3</div><div class="step-text"><strong>Fill Details</strong> — He fills in the title, description, category, duration, lessons count, and difficulty level in a form.</div></div>
+  <div class="step"><div class="step-num">4</div><div class="step-text"><strong>Publish</strong> — He taps <em>Publish</em>. The new program becomes visible to all learners on the Program List screen.</div></div>
+  <div class="step"><div class="step-num">5</div><div class="step-text"><strong>Monitor</strong> — He returns to the admin dashboard to see enrolment numbers update in real time.</div></div>
+</div>
+
+
+<!-- ═══════════════════════════ 5. WIREFRAMES ═══════════════════════════ -->
+<h2>5. Low-Fidelity Wireframes</h2>
+<p>The following wireframes represent the core layout structure of each screen. Actual implementation matches these layouts in Flutter.</p>
+
+<div class="wireframe-grid">
+
+  <!-- LOGIN -->
+  <div class="wf-card">
+    <div class="wf-title">① LOGIN SCREEN — Mobile</div>
+    <div class="wf-body">
+      <div class="wf-frame">┌─────────────────────────┐
+│  [📚] LearnHub          │
+│                         │
+│  Welcome back           │
+│  Log in to continue...  │
+│                         │
+│  ┌─────────────────────┐│
+│  │ ✉  Email address   ││
+│  └─────────────────────┘│
+│                         │
+│  ┌─────────────────────┐│
+│  │ 🔒  Password    👁  ││
+│  └─────────────────────┘│
+│                         │
+│           Forgot password?
+│                         │
+│  ┌─────────────────────┐│
+│  │       Log In        ││
+│  └─────────────────────┘│
+│                         │
+│  ─────── or ────────    │
+│                         │
+│  Don't have an account? │
+│         [Sign up]       │
+└─────────────────────────┘</div>
+    </div>
+  </div>
+
+  <!-- LOGIN DESKTOP -->
+  <div class="wf-card">
+    <div class="wf-title">② LOGIN SCREEN — Desktop Split</div>
+    <div class="wf-body">
+      <div class="wf-frame">┌────────────────┬──────────────────┐
+│  BRAND PANEL   │   LOGIN FORM     │
+│  (gradient)    │                  │
+│                │  Welcome back    │
+│  [📚]LearnHub  │                  │
+│                │  ┌────────────┐  │
+│  Skills that   │  │ ✉ Email    │  │
+│  move your     │  └────────────┘  │
+│  career        │  ┌────────────┐  │
+│  forward.      │  │ 🔒 Password│  │
+│                │  └────────────┘  │
+│  Join thousands│                  │
+│  of learners...│  [  Log In  ]    │
+│                │                  │
+│                │  ─── or ───      │
+│                │  Sign up         │
+└────────────────┴──────────────────┘</div>
+    </div>
+  </div>
+
+  <!-- HOME -->
+  <div class="wf-card">
+    <div class="wf-title">③ HOME / DASHBOARD SCREEN</div>
+    <div class="wf-body">
+      <div class="wf-frame">┌─────────────────────────┐
+│ Dashboard       🔔      │  ← AppBar
+├─────────────────────────┤
+│ [K]  Hi, Kavya 👋       │
+│      Let's continue...  │
+├─────────────────────────┤
+│ ┌────────────────────┐  │
+│ │ IN PROGRESS        │  │  ← Gradient card
+│ │ Flutter Dev Basics │  │
+│ │ Module 6 of 8      │  │
+│ │ ████████░░░░ 75%   │  │
+│ └────────────────────┘  │
+├─────────────────────────┤
+│ Popular Programs        │
+│ ┌──────────┐┌──────────┐│
+│ │🎨 UI/UX  ││🐍 Python ││
+│ │ ★4.8(230)││ ★4.7(185)││
+│ └──────────┘└──────────┘│
+│ ┌──────────┐┌──────────┐│
+│ │📊 Data Sc││📣 Mktg   ││
+│ └──────────┘└──────────┘│
+├─────────────────────────┤
+│ Your Achievements       │
+│ ┌──────┐┌──────┐┌──────┐│
+│ │  12  ││   8  ││  42  ││
+│ │Certs ││Course││Hours ││
+│ └──────┘└──────┘└──────┘│
+├─────────────────────────┤
+│ 🏠Home │🔍Explore│📚My │👤│  ← Bottom Nav
+└─────────────────────────┘</div>
+    </div>
+  </div>
+
+  <!-- PROGRAM LIST -->
+  <div class="wf-card">
+    <div class="wf-title">④ PROGRAM LISTING SCREEN</div>
+    <div class="wf-body">
+      <div class="wf-frame">┌─────────────────────────┐
+│ Programs                │  ← AppBar
+├─────────────────────────┤
+│ ┌─────────────────────┐ │
+│ │ 🔍 Search programs  │ │  ← Search bar
+│ └─────────────────────┘ │
+│                         │
+│ [All] [Dev] [Design]... │  ← Filter chips
+│                         │
+│ ┌─────────────────────┐ │
+│ │🎨  UI/UX Design     │ │
+│ │    ★ 4.8 (210)    › │ │
+│ └─────────────────────┘ │
+│ ┌─────────────────────┐ │
+│ │🐍  Python Beginners │ │
+│ │    ★ 4.7 (185)    › │ │
+│ └─────────────────────┘ │
+│ ┌─────────────────────┐ │
+│ │📊  Data Science     │ │
+│ │    ★ 4.6 (160)    › │ │
+│ └─────────────────────┘ │
+│ ┌─────────────────────┐ │
+│ │📣  Digital Mktg     │ │
+│ │    ★ 4.5 (140)    › │ │
+│ └─────────────────────┘ │
+└─────────────────────────┘</div>
+    </div>
+  </div>
+
+  <!-- PROGRAM DETAIL -->
+  <div class="wf-card">
+    <div class="wf-title">⑤ PROGRAM DETAIL SCREEN</div>
+    <div class="wf-body">
+      <div class="wf-frame">┌─────────────────────────┐
+│ ← [gradient header]     │  ← SliverAppBar
+│                         │
+│  Flutter Development    │
+│  Complete Guide         │
+├─────────────────────────┤
+│ ★ 4.8 (230) [Development│  ← Meta row
+├─────────────────────────┤
+│ Learn Flutter from      │
+│ scratch and build       │
+│ beautiful apps...       │
+├─────────────────────────┤
+│ [📖 25 Lessons]         │  ← Info chips
+│ [⏱ 15 Hours]           │
+│ [🏆 Beginner Level]     │
+├─────────────────────────┤
+│ What you'll learn       │
+│ ✅ Flutter Basics & Dart│
+│ ✅ Widgets & State Mgmt │
+│ ✅ Navigation & Routing │
+│ ✅ Firebase Integration │
+├─────────────────────────┤
+│ ┌─────────────────────┐ │
+│ │     Enrol Now       │ │  ← CTA button
+│ └─────────────────────┘ │
+└─────────────────────────┘</div>
+    </div>
+  </div>
+
+  <!-- NAVIGATION FLOW -->
+  <div class="wf-card">
+    <div class="wf-title">⑥ NAVIGATION FLOW DIAGRAM</div>
+    <div class="wf-body">
+      <div class="wf-frame">
+  [Login Screen]
+       │
+       │  Tap "Log In"
+       ▼
+  [Home / Dashboard]
+       │
+  ┌────┴────────────────┐
+  │                     │
+  │ Tap program card    │ Tap "Explore"
+  ▼                     ▼
+[Program Detail]  [Program List]
+  │                     │
+  │ Enrol Now           │ Tap program card
+  ▼                     ▼
+[Snackbar: Enrolled!] [Program Detail]
+                         │
+                         │ Enrol Now
+                         ▼
+                   [Snackbar: Enrolled!]
+
+Bottom Nav:
+  🏠 Home → Dashboard
+  🔍 Explore → Program List
+  📚 My Learning → (planned)
+  👤 Profile → (planned)
+</div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ═══════════════════════════ 6. TECH STACK ═══════════════════════════ -->
+<h2>6. Technology Stack</h2>
+
+<table>
+  <tr><th>Layer</th><th>Technology</th><th>Reason</th></tr>
+  <tr><td>Framework</td><td>Flutter 3.44 (Dart 3.12)</td><td>Single codebase for mobile, web & desktop</td></tr>
+  <tr><td>UI System</td><td>Material Design 3</td><td>Modern, accessible, customisable components</td></tr>
+  <tr><td>State Management</td><td>StatefulWidget (local)</td><td>Sufficient for Week 1 scope; scalable to BLoC/Riverpod later</td></tr>
+  <tr><td>Navigation</td><td>Named Routes (Navigator 1.0)</td><td>Simple, clear route mapping</td></tr>
+  <tr><td>Responsiveness</td><td>Custom Responsive utility</td><td>Breakpoints at 599px (mobile) and 1023px (tablet)</td></tr>
+  <tr><td>Backend (planned)</td><td>Firebase (Auth + Firestore)</td><td>Real-time data, authentication, scalable</td></tr>
+</table>
+
+
+<!-- ═══════════════════════════ 7. GITHUB ═══════════════════════════ -->
+<h2>7. GitHub Repository</h2>
+
+<p>The project is version-controlled on GitHub. The repository contains:</p>
+<ul>
+  <li>Complete Flutter project folder structure</li>
+  <li>All source code for 4 screens (Login, Home, Program List, Program Detail)</li>
+  <li>Custom theme and responsive utility classes</li>
+  <li>This README with project vision, objectives, and navigation flow</li>
+  <li>At least one commit per development milestone</li>
+</ul>
+
+<p>
+  <strong>Repository URL:</strong>
+  <span class="badge badge-indigo">github.com/[your-username]/LearnHub</span>
+  &nbsp;→ Replace with your actual GitHub URL before submission.
+</p>
+
+<h3>Commit History (evidence of version control)</h3>
+<table>
+  <tr><th>Commit</th><th>Message</th><th>Description</th></tr>
+  <tr><td><code>initial</code></td><td>Initial Flutter project setup</td><td>Base Flutter project with pubspec.yaml and folder structure</td></tr>
+  <tr><td><code>screens</code></td><td>Add all 4 core screens</td><td>Login, Home, Program List, Program Detail with full UI</td></tr>
+  <tr><td><code>theme</code></td><td>Add AppTheme and Responsive utilities</td><td>Design tokens, colors, spacing, breakpoint helpers</td></tr>
+  <tr><td><code>docs</code></td><td>Add README and App Proposal</td><td>Week 1 documentation deliverables</td></tr>
+</table>
+
+
+<!-- ═══════════════════════════ 8. WEEK 1 OUTCOMES ═══════════════════════════ -->
+<h2>8. Week 1 Learning Outcomes</h2>
+
+<p>By completing Week 1, the following outcomes have been achieved:</p>
+<ul>
+  <li>✅ Defined the app purpose, target users, and key feature set</li>
+  <li>✅ Created user journey examples for both Learner and Admin roles</li>
+  <li>✅ Designed low-fidelity wireframes for all 4 core screens</li>
+  <li>✅ Set up a Flutter project with a clean, scalable folder structure</li>
+  <li>✅ Implemented responsive layouts using custom breakpoint utilities</li>
+  <li>✅ Applied Material Design 3 theming with consistent design tokens</li>
+  <li>✅ Established version control with Git and GitHub</li>
+  <li>✅ Wrote a comprehensive README documenting the project vision and navigation flow</li>
+</ul>
+
+</div>
+
+<div class="footer">
+  LearnHub &nbsp;·&nbsp; App Proposal Document &nbsp;·&nbsp; Week 1 Submission &nbsp;·&nbsp; 2026
+</div>
+
+</body>
+</html>
