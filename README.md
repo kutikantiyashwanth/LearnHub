@@ -31,33 +31,55 @@ LearnHub bridges the gap between learners and quality skill-building content. Th
 
 ## Key Features
 
-### Learner
-- Email/password login
-- Personalised home dashboard with in-progress course, popular programs, and achievements
-- Program listing with search and category filters
-- Program detail page with lessons, duration, level, and enrolment
-- Responsive layout (mobile / tablet / desktop)
+### ✅ Week 2 — Functional UI Prototype (4 Interactive Screens)
 
-### Admin *(planned for future weeks)*
-- Create and manage programs
-- View enrolled learner statistics
-- Manage user accounts
+| Screen | Features |
+|--------|---------|
+| **Login Screen** | Form validation, show/hide password, loading state, forgot password dialog, sign-up prompt |
+| **Home Screen** | Personalised greeting, in-progress course card with progress bar, popular programs grid, achievements, notifications drawer, profile sheet, logout |
+| **Program Listing** | Live search with clear button, category filter chips, result count, 8 programs, empty state |
+| **Program Detail** | Curriculum list, what you'll learn checklist, bookmark toggle, enrol button with state change, share button |
+
+### Navigation Flow
+```
+/login  ──── Log In ────►  /home
+                              │
+                    ┌─────────┴──────────┐
+                    │                    │
+              Program card          "See all" / Explore tab
+                    │                    │
+                    ▼                    ▼
+            /program-detail      /programs (list)
+                    │                    │
+               Enrol Now           Program card
+                    │                    │
+               Snackbar ◄───────────────┘
+                "Go Home" → /home
+```
 
 ---
 
-## App Navigation Flow
+## App Screenshots
 
-```
-/login
-   └── Log In button
-         └── /home  (Dashboard)
-               ├── Program card tap → /program-detail
-               └── Bottom nav / sidebar
-                     ├── Explore → /programs
-                     │     └── Program card tap → /program-detail
-                     ├── My Learning (planned)
-                     └── Profile (planned)
-```
+### 1. Login Screen
+![Login Screen](docs/screenshots/login.png)
+
+*Clean login form with email/password validation, show/hide password toggle, and brand panel on desktop.*
+
+### 2. Home Dashboard
+![Home Screen](docs/screenshots/home.png)
+
+*Personalised dashboard with in-progress course card (75% progress), popular programs grid, and achievement stats.*
+
+### 3. Program Listing
+![Program Listing](docs/screenshots/programs.png)
+
+*Searchable, filterable program catalog with 8 programs across 4 categories.*
+
+### 4. Program Detail
+![Program Detail](docs/screenshots/detail.png)
+
+*Full program page with curriculum, learning outcomes checklist, and interactive enrol button.*
 
 ---
 
@@ -66,22 +88,26 @@ LearnHub bridges the gap between learners and quality skill-building content. Th
 ```
 LearnHub/
 ├── lib/
-│   ├── main.dart                  # App entry point & route table
+│   ├── main.dart                     # App entry + animated route transitions
 │   ├── screens/
-│   │   ├── login_screen.dart      # Login page (desktop split + mobile)
-│   │   ├── home_screen.dart       # Dashboard with progress & programs
-│   │   ├── program_list_screen.dart   # Browseable program catalog
-│   │   └── program_detail_screen.dart # Full program info + enrol
+│   │   ├── login_screen.dart         # Form validation, loading state, dialogs
+│   │   ├── home_screen.dart          # Dashboard, bottom nav, notifications
+│   │   ├── program_list_screen.dart  # Search, filter, 8 programs
+│   │   └── program_detail_screen.dart # Curriculum, enrol, bookmark
 │   ├── theme/
-│   │   └── app_theme.dart         # Colors, spacing, radii, ThemeData
+│   │   └── app_theme.dart            # Design tokens — colors, spacing, radii
 │   └── utils/
-│       └── responsive.dart        # Breakpoint helpers & ResponsiveCenter
-├── android/                       # Android platform files
-├── ios/                           # iOS platform files
-├── web/                           # Web platform files
-├── windows/                       # Windows desktop platform files
-├── pubspec.yaml                   # Dependencies
-└── README.md                      # This file
+│       └── responsive.dart           # Breakpoint helpers & ResponsiveCenter
+├── docs/
+│   ├── app_proposal.html             # Week 1 proposal document
+│   ├── LearnHub_App_Proposal_Week1.pdf
+│   └── screenshots/                  # Week 2 app screenshots
+├── android/
+├── ios/
+├── web/
+├── windows/
+├── pubspec.yaml
+└── README.md
 ```
 
 ---
@@ -93,9 +119,47 @@ LearnHub/
 | Framework | Flutter 3.44 (Dart 3.12) |
 | UI | Material Design 3 |
 | State | StatefulWidget (local state) |
-| Navigation | Named routes (`Navigator`) |
+| Navigation | Named routes with animated transitions |
 | Responsive | Custom `Responsive` breakpoint utility |
 | Platforms | Android · iOS · Web · Windows · macOS · Linux |
+
+---
+
+## Navigation & Interactivity
+
+### Screen-by-screen interactions
+
+**Login Screen**
+- Email and password validation with error messages
+- Toggle password visibility
+- Loading spinner on login tap
+- Forgot password dialog with email input
+- Sign-up snackbar prompt
+- Animated fade transition to Home
+
+**Home Screen**
+- Tap avatar → profile bottom sheet with logout
+- Tap bell → notifications bottom sheet
+- Tap in-progress card → navigates to Program Detail
+- Tap "See all" → navigates to Program List
+- Tap any program card → navigates to Program Detail with data
+- Bottom navigation (Home / Explore / My Learning / Profile)
+
+**Program Listing**
+- Live search — filters as you type
+- Clear button appears when search has text
+- Category chips filter programs
+- Result count updates dynamically
+- Empty state when no results found
+- Each card navigates to Program Detail
+
+**Program Detail**
+- Bookmark toggle with snackbar feedback
+- Enrol button changes to "Enrolled!" after tapping
+- Snackbar with "Go Home" action after enrolment
+- Share button with clipboard snackbar
+- Full curriculum with module list
+- What you'll learn checklist
 
 ---
 
@@ -103,7 +167,7 @@ LearnHub/
 
 ### Prerequisites
 - Flutter SDK 3.x — [flutter.dev](https://flutter.dev/docs/get-started/install)
-- Chrome (for web), Android Studio (for Android), or Xcode (for iOS)
+- Chrome (for web), Android Studio (for Android)
 
 ### Run the app
 
@@ -112,7 +176,7 @@ LearnHub/
 flutter pub get
 
 # Run on Chrome (web)
-flutter run -d chrome
+flutter run -d chrome --release
 
 # Run on Windows desktop
 flutter run -d windows
@@ -123,13 +187,17 @@ flutter run -d android
 
 ---
 
-## Version Control
+## Commit History
 
-This repository uses Git for version control. All source code is committed and pushed to GitHub with meaningful commit messages tracking each development milestone.
+| Commit | Description |
+|--------|-------------|
+| `f0c7eae` | Initial commit: LearnHub Flutter App |
+| `b4cac06` | docs: add Week 1 App Proposal and README |
+| `32a31e7` | docs: add Week 1 App Proposal PDF |
+| `latest` | feat: Week 2 — interactive UI prototype with full navigation |
 
 ---
 
 ## Author
 
-**LearnHub** — Week 1 Submission  
-Flutter LMS Project · 2026
+**kutikantiyashwanth** — LearnHub Flutter LMS · 2026

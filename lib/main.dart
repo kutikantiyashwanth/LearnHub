@@ -18,12 +18,40 @@ class LearnHubApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
       initialRoute: '/login',
-      routes: {
-        '/login': (_) => const LoginScreen(),
-        '/home': (_) => const HomeScreen(),
-        '/programs': (_) => const ProgramListScreen(),
-        '/program-detail': (_) => const ProgramDetailScreen(),
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case '/login':
+            return _fade(const LoginScreen());
+          case '/home':
+            return _fade(const HomeScreen());
+          case '/programs':
+            return _slide(const ProgramListScreen());
+          case '/program-detail':
+            final program = settings.arguments as Map<String, dynamic>?;
+            return _slide(ProgramDetailScreen(program: program));
+          default:
+            return _fade(const LoginScreen());
+        }
       },
     );
   }
+
+  PageRoute _fade(Widget page) => PageRouteBuilder(
+        pageBuilder: (_, __, ___) => page,
+        transitionsBuilder: (_, a, __, c) =>
+            FadeTransition(opacity: a, child: c),
+        transitionDuration: const Duration(milliseconds: 250),
+      );
+
+  PageRoute _slide(Widget page) => PageRouteBuilder(
+        pageBuilder: (_, __, ___) => page,
+        transitionsBuilder: (_, a, __, c) => SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(1, 0),
+            end: Offset.zero,
+          ).animate(CurvedAnimation(parent: a, curve: Curves.easeOutCubic)),
+          child: c,
+        ),
+        transitionDuration: const Duration(milliseconds: 300),
+      );
 }
