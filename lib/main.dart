@@ -4,6 +4,7 @@ import 'screens/home_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/program_detail_screen.dart';
 import 'screens/program_list_screen.dart';
+import 'screens/signup_screen.dart';
 import 'theme/app_theme.dart';
 
 void main() => runApp(const LearnHubApp());
@@ -22,6 +23,8 @@ class LearnHubApp extends StatelessWidget {
         switch (settings.name) {
           case '/login':
             return _fade(const LoginScreen());
+          case '/signup':
+            return _fade(const SignUpScreen());
           case '/home':
             return _fade(const HomeScreen());
           case '/programs':

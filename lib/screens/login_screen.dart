@@ -296,13 +296,6 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _showSignUp() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: const Text('Sign up coming soon!'),
-        backgroundColor: AppColors.primary,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      ),
-    );
+    Navigator.pushReplacementNamed(context, '/signup');
   }
 }
