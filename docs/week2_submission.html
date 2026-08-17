@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LearnHub – Week 2 Submission</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; color: #1e293b; background: #fff; }
+
+  .cover {
+    background: linear-gradient(135deg, #4f46e5 0%, #14b8a6 100%);
+    color: #fff; padding: 70px 60px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .cover .logo { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+  .cover .logo-icon {
+    width: 52px; height: 52px; border-radius: 12px;
+    background: rgba(255,255,255,0.18);
+    display: flex; align-items: center; justify-content: center; font-size: 26px;
+  }
+  .cover .logo-text { font-size: 32px; font-weight: 800; }
+  .cover h1 { font-size: 40px; font-weight: 800; line-height: 1.2; margin-bottom: 10px; }
+  .cover p  { font-size: 16px; opacity: 0.88; }
+  .cover .meta { margin-top: 36px; font-size: 14px; opacity: 0.75; }
+  .badge-cover {
+    display: inline-block; background: rgba(255,255,255,0.2);
+    padding: 6px 16px; border-radius: 20px; font-size: 13px;
+    font-weight: 600; margin-top: 16px;
+  }
+
+  .content { max-width: 900px; margin: 0 auto; padding: 52px 48px; }
+
+  h2 { font-size: 23px; font-weight: 700; color: #4f46e5; margin: 44px 0 14px;
+       border-bottom: 2px solid #eef2ff; padding-bottom: 8px; }
+  h3 { font-size: 16px; font-weight: 700; color: #1e293b; margin: 22px 0 8px; }
+  p  { font-size: 14px; line-height: 1.75; color: #334155; margin-bottom: 10px; }
+  ul, ol { padding-left: 20px; margin-bottom: 12px; }
+  li { font-size: 14px; line-height: 1.85; color: #334155; }
+
+  table { width: 100%; border-collapse: collapse; margin: 14px 0 22px; font-size: 13px; }
+  th { background: #4f46e5; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; }
+  td { padding: 10px 14px; border-bottom: 1px solid #e7e9f3; vertical-align: top; }
+  tr:nth-child(even) td { background: #f7f8fc; }
+
+  /* Screen mockup cards */
+  .screens-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 20px 0; }
+  .screen-card { border: 2px solid #e7e9f3; border-radius: 16px; overflow: hidden; }
+  .screen-header { padding: 10px 16px; font-size: 12px; font-weight: 700;
+                   letter-spacing: 0.5px; color: #fff; }
+  .screen-body { padding: 0; background: #f8fafc; }
+
+  /* Phone mockup */
+  .phone {
+    width: 220px; margin: 16px auto;
+    border: 3px solid #cbd5e1; border-radius: 28px;
+    overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    font-family: 'Segoe UI', sans-serif; font-size: 11px;
+  }
+  .phone-status { background: #1e293b; color: #fff; padding: 6px 14px;
+                  font-size: 10px; display: flex; justify-content: space-between; }
+  .phone-content { background: #f7f8fc; min-height: 380px; }
+
+  /* Login mockup */
+  .mock-login { padding: 16px; }
+  .mock-logo { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+  .mock-logo-icon { width: 30px; height: 30px; background: #eef2ff; border-radius: 7px;
+    display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .mock-logo-text { font-weight: 800; font-size: 14px; color: #1e293b; }
+  .mock-title { font-size: 16px; font-weight: 800; color: #1e293b; margin-bottom: 4px; }
+  .mock-sub { font-size: 10px; color: #64748b; margin-bottom: 16px; }
+  .mock-input {
+    border: 1.5px solid #e7e9f3; border-radius: 10px;
+    padding: 8px 10px; margin-bottom: 8px; font-size: 10px; color: #94a3b8;
+    background: #fff; display: flex; align-items: center; gap: 6px;
+  }
+  .mock-btn {
+    background: #4f46e5; color: #fff; border-radius: 10px;
+    padding: 10px; text-align: center; font-weight: 700;
+    font-size: 11px; margin-top: 8px;
+  }
+  .mock-link { text-align: center; color: #4f46e5; font-size: 10px; margin-top: 10px; }
+  .mock-divider { display: flex; align-items: center; gap: 8px; margin: 10px 0;
+    font-size: 10px; color: #94a3b8; }
+  .mock-line { flex: 1; height: 1px; background: #e7e9f3; }
+
+  /* Home mockup */
+  .mock-appbar { background: #f7f8fc; padding: 8px 12px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid #e7e9f3; font-weight: 700; font-size: 12px; color: #1e293b; }
+  .mock-home { padding: 12px; }
+  .mock-greeting { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+  .mock-avatar { width: 32px; height: 32px; border-radius: 50%; background: #4f46e5;
+    color: #fff; display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 13px; }
+  .mock-hi { font-weight: 700; font-size: 12px; color: #1e293b; }
+  .mock-hi-sub { font-size: 9px; color: #64748b; }
+  .mock-card {
+    background: linear-gradient(135deg, #4f46e5, #14b8a6);
+    border-radius: 14px; padding: 12px; color: #fff; margin-bottom: 12px;
+  }
+  .mock-card-badge { background: rgba(255,255,255,0.2); border-radius: 10px;
+    padding: 2px 8px; font-size: 8px; font-weight: 700; display: inline-block; margin-bottom: 6px; }
+  .mock-card-title { font-size: 11px; font-weight: 700; margin-bottom: 3px; }
+  .mock-card-sub { font-size: 9px; opacity: 0.85; margin-bottom: 8px; }
+  .mock-progress-bar { background: rgba(255,255,255,0.25); border-radius: 4px; height: 5px;
+    position: relative; }
+  .mock-progress-fill { background: #fff; border-radius: 4px; height: 5px; width: 75%; }
+  .mock-section { font-weight: 700; font-size: 11px; color: #1e293b; margin-bottom: 8px; }
+  .mock-program { background: #fff; border-radius: 10px; padding: 8px 10px;
+    display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .mock-prog-icon { width: 28px; height: 28px; border-radius: 7px;
+    display: flex; align-items: center; justify-content: center; font-size: 14px; }
+  .mock-prog-title { font-size: 10px; font-weight: 600; color: #1e293b; }
+  .mock-prog-rating { font-size: 9px; color: #64748b; }
+  .mock-bottomnav {
+    display: flex; background: #fff; border-top: 1px solid #e7e9f3;
+    padding: 8px 0;
+  }
+  .mock-nav-item { flex: 1; text-align: center; font-size: 8px; color: #94a3b8; }
+  .mock-nav-item.active { color: #4f46e5; font-weight: 700; }
+
+  /* Programs mockup */
+  .mock-programs { padding: 10px; }
+  .mock-search { border: 1.5px solid #e7e9f3; border-radius: 10px; padding: 7px 10px;
+    background: #fff; font-size: 10px; color: #94a3b8; display: flex;
+    align-items: center; gap: 6px; margin-bottom: 10px; }
+  .mock-chips { display: flex; gap: 5px; margin-bottom: 10px; flex-wrap: wrap; }
+  .mock-chip { padding: 3px 10px; border-radius: 12px; font-size: 9px; font-weight: 600;
+    border: 1px solid #e7e9f3; background: #fff; color: #64748b; }
+  .mock-chip.active { background: #4f46e5; color: #fff; border-color: #4f46e5; }
+
+  /* Detail mockup */
+  .mock-hero { background: linear-gradient(135deg, #4f46e5, #14b8a6);
+    padding: 36px 14px 14px; color: #fff; }
+  .mock-hero-back { font-size: 10px; margin-bottom: 10px; opacity: 0.85; }
+  .mock-hero-title { font-size: 14px; font-weight: 800; line-height: 1.3; }
+  .mock-detail { padding: 12px; }
+  .mock-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .mock-stars { color: #fbbf24; font-size: 10px; }
+  .mock-cat { background: #eef2ff; color: #4f46e5; border-radius: 10px;
+    padding: 2px 8px; font-size: 9px; font-weight: 700; }
+  .mock-desc { font-size: 9px; color: #64748b; line-height: 1.6; margin-bottom: 10px; }
+  .mock-chips2 { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 10px; }
+  .mock-chip2 { border: 1px solid #e7e9f3; border-radius: 10px;
+    padding: 3px 8px; font-size: 9px; color: #64748b; }
+  .mock-learn { font-size: 11px; font-weight: 700; color: #1e293b; margin-bottom: 6px; }
+  .mock-learn-item { display: flex; align-items: center; gap: 6px;
+    font-size: 9px; color: #334155; margin-bottom: 4px; }
+  .mock-check { color: #14b8a6; font-size: 11px; }
+  .mock-enrol { background: #4f46e5; color: #fff; border-radius: 10px;
+    padding: 10px; text-align: center; font-weight: 700; font-size: 11px; margin-top: 12px; }
+
+  /* Nav flow */
+  .nav-box { background: #f7f8fc; border-radius: 12px; padding: 20px 24px;
+    font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.9;
+    color: #334155; margin: 14px 0; }
+
+  /* Commit list */
+  .commit { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f1f5f9; }
+  .commit-hash { font-family: monospace; font-size: 12px; color: #4f46e5;
+    background: #eef2ff; padding: 2px 8px; border-radius: 6px; white-space: nowrap;
+    align-self: flex-start; margin-top: 2px; }
+  .commit-msg { font-size: 13px; font-weight: 600; color: #1e293b; }
+  .commit-sub { font-size: 12px; color: #64748b; margin-top: 2px; }
+
+  .highlight { background: #eef2ff; border-left: 4px solid #4f46e5;
+    border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 14px 0; }
+  .highlight p { margin: 0; }
+
+  .check-list li { list-style: none; padding-left: 4px; }
+  .check-list li::before { content: '✅ '; }
+
+  .footer { text-align: center; padding: 36px; color: #94a3b8;
+    font-size: 13px; border-top: 1px solid #e7e9f3; margin-top: 36px; }
+
+  @media print {
+    .cover, th, .mock-btn, .mock-card, .mock-hero, .mock-appbar,
+    .mock-bottomnav, .mock-chip.active, .commit-hash
+    { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .screen-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .nav-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .highlight { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="logo">
+    <div class="logo-icon">📚</div>
+    <span class="logo-text">LearnHub</span>
+  </div>
+  <h1>Week 2 Submission</h1>
+  <p>Working UI Prototype — 5 Interactive Screens with Full Navigation</p>
+  <div class="badge-cover">Flutter · Material Design 3 · Cross-Platform</div>
+  <div class="meta">
+    GitHub: github.com/kutikantiyashwanth/LearnHub &nbsp;·&nbsp;
+    kutikantiyashwanth &nbsp;·&nbsp; 2026
+  </div>
+</div>
+
+<div class="content">
+
+<!-- 1. OVERVIEW -->
+<h2>1. Prototype Overview</h2>
+<p>
+  LearnHub is a cross-platform Learning Management System built with Flutter (Dart).
+  The Week 2 prototype delivers <strong>5 fully interactive screens</strong> with
+  smooth animated navigation, form validation, real-time search, and interactive UI elements
+  — all built on a consistent Material Design 3 theme using indigo and teal brand colors.
+</p>
+
+<div class="highlight">
+  <p>
+    <strong>GitHub Repository:</strong>
+    <a href="https://github.com/kutikantiyashwanth/LearnHub">
+      https://github.com/kutikantiyashwanth/LearnHub
+    </a>
+    &nbsp;·&nbsp; Branch: <code>main</code>
+  </p>
+</div>
+
+<table>
+  <tr><th>Screen</th><th>Route</th><th>Status</th><th>Key Interactions</th></tr>
+  <tr><td>Login</td><td>/login</td><td>✅ Done</td><td>Form validation, loading state, forgot password dialog, animated transition</td></tr>
+  <tr><td>Sign Up</td><td>/signup</td><td>✅ Done</td><td>4-field form, password match, terms checkbox, success snackbar</td></tr>
+  <tr><td>Home Dashboard</td><td>/home</td><td>✅ Done</td><td>Progress card, programs grid, achievements, notifications, profile sheet</td></tr>
+  <tr><td>Program Listing</td><td>/programs</td><td>✅ Done</td><td>Live search, category filters, 8 programs, empty state</td></tr>
+  <tr><td>Program Detail</td><td>/program-detail</td><td>✅ Done</td><td>Curriculum, enrol button state, bookmark, share</td></tr>
+</table>
+
+
+<!-- 2. SCREEN MOCKUPS -->
+<h2>2. Screen Designs & Wireframe Comparison</h2>
+<p>Each screen below shows the implemented Flutter UI alongside the original Week 1 wireframe concept.</p>
+
+<div class="screens-grid">
+
+  <!-- LOGIN -->
+  <div class="screen-card">
+    <div class="screen-header" style="background:#4f46e5;">① LOGIN SCREEN</div>
+    <div class="screen-body">
+      <div class="phone">
+        <div class="phone-status"><span>9:41</span><span>●●●</span></div>
+        <div class="phone-content">
+          <div class="mock-login">
+            <div class="mock-logo">
+              <div class="mock-logo-icon">📚</div>
+              <span class="mock-logo-text">LearnHub</span>
+            </div>
+            <div class="mock-title">Welcome back</div>
+            <div class="mock-sub">Log in to continue your learning journey.</div>
+            <div class="mock-input">✉ &nbsp;Email address</div>
+            <div class="mock-input">🔒 &nbsp;Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;👁</div>
+            <div style="text-align:right;font-size:9px;color:#4f46e5;margin-bottom:8px;">Forgot password?</div>
+            <div class="mock-btn">Log In</div>
+            <div class="mock-divider"><div class="mock-line"></div>or<div class="mock-line"></div></div>
+            <div class="mock-link">Don't have an account? Sign up</div>
+          </div>
+        </div>
+        <div class="mock-bottomnav"></div>
+      </div>
+      <p style="font-size:11px;color:#64748b;padding:8px 16px 12px;">
+        ✓ Email & password validation<br/>
+        ✓ Show/hide password toggle<br/>
+        ✓ Forgot password dialog<br/>
+        ✓ Sign up navigation<br/>
+        ✓ Loading spinner on submit
+      </p>
+    </div>
+  </div>
+
+  <!-- SIGNUP -->
+  <div class="screen-card">
+    <div class="screen-header" style="background:#14b8a6;">② SIGN UP SCREEN</div>
+    <div class="screen-body">
+      <div class="phone">
+        <div class="phone-status"><span>9:41</span><span>●●●</span></div>
+        <div class="phone-content">
+          <div class="mock-login">
+            <div class="mock-logo">
+              <div class="mock-logo-icon">📚</div>
+              <span class="mock-logo-text">LearnHub</span>
+            </div>
+            <div class="mock-title">Create account</div>
+            <div class="mock-sub">Join thousands of learners on LearnHub.</div>
+            <div class="mock-input">👤 &nbsp;Full name</div>
+            <div class="mock-input">✉ &nbsp;Email address</div>
+            <div class="mock-input">🔒 &nbsp;Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;👁</div>
+            <div class="mock-input">🔒 &nbsp;Confirm password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;👁</div>
+            <div style="font-size:9px;color:#64748b;margin:6px 0;">☑ I agree to Terms & Privacy Policy</div>
+            <div class="mock-btn">Create Account</div>
+            <div class="mock-link">Already have an account? Log In</div>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:11px;color:#64748b;padding:8px 16px 12px;">
+        ✓ 4-field form with validation<br/>
+        ✓ Password match check<br/>
+        ✓ Terms & conditions checkbox<br/>
+        ✓ Success → redirects to Home<br/>
+        ✓ Back to Login navigation
+      </p>
+    </div>
+  </div>
+
+  <!-- HOME -->
+  <div class="screen-card">
+    <div class="screen-header" style="background:#6366f1;">③ HOME / DASHBOARD</div>
+    <div class="screen-body">
+      <div class="phone">
+        <div class="phone-status"><span>9:41</span><span>●●●</span></div>
+        <div class="phone-content">
+          <div class="mock-appbar">Dashboard <span>🔔</span></div>
+          <div class="mock-home">
+            <div class="mock-greeting">
+              <div class="mock-avatar">K</div>
+              <div>
+                <div class="mock-hi">Hi, Kavya 👋</div>
+                <div class="mock-hi-sub">Let's continue learning today.</div>
+              </div>
+            </div>
+            <div class="mock-card">
+              <div class="mock-card-badge">IN PROGRESS</div>
+              <div class="mock-card-title">Flutter Development Basics</div>
+              <div class="mock-card-sub">Module 6 of 8 · UI & Layouts</div>
+              <div class="mock-progress-bar"><div class="mock-progress-fill"></div></div>
+              <div style="text-align:right;font-size:9px;margin-top:4px;opacity:0.9;">75%</div>
+            </div>
+            <div class="mock-section">Popular Programs</div>
+            <div class="mock-program">
+              <div class="mock-prog-icon" style="background:#fff0f0;">🎨</div>
+              <div><div class="mock-prog-title">UI/UX Design Fundamentals</div>
+              <div class="mock-prog-rating">★ 4.8 (230)</div></div>
+            </div>
+            <div class="mock-program">
+              <div class="mock-prog-icon" style="background:#fff8f0;">🐍</div>
+              <div><div class="mock-prog-title">Python for Beginners</div>
+              <div class="mock-prog-rating">★ 4.7 (185)</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="mock-bottomnav">
+          <div class="mock-nav-item active">🏠 Home</div>
+          <div class="mock-nav-item">🔍 Explore</div>
+          <div class="mock-nav-item">📚 Learn</div>
+          <div class="mock-nav-item">👤 Profile</div>
+        </div>
+      </div>
+      <p style="font-size:11px;color:#64748b;padding:8px 16px 12px;">
+        ✓ In-progress card with progress bar<br/>
+        ✓ Tap card → Program Detail<br/>
+        ✓ Notifications bottom sheet<br/>
+        ✓ Profile sheet with logout<br/>
+        ✓ Bottom navigation bar
+      </p>
+    </div>
+  </div>
+
+  <!-- PROGRAM LIST -->
+  <div class="screen-card">
+    <div class="screen-header" style="background:#0f766e;">④ PROGRAM LISTING</div>
+    <div class="screen-body">
+      <div class="phone">
+        <div class="phone-status"><span>9:41</span><span>●●●</span></div>
+        <div class="phone-content">
+          <div class="mock-appbar">← Programs</div>
+          <div class="mock-programs">
+            <div class="mock-search">🔍 &nbsp;Search programs...</div>
+            <div class="mock-chips">
+              <div class="mock-chip active">All</div>
+              <div class="mock-chip">Dev</div>
+              <div class="mock-chip">Design</div>
+              <div class="mock-chip">Mktg</div>
+            </div>
+            <div style="font-size:9px;color:#64748b;margin-bottom:8px;">8 programs found</div>
+            <div class="mock-program">
+              <div class="mock-prog-icon" style="background:#fff0f0;">🎨</div>
+              <div><div class="mock-prog-title">UI/UX Design Fundamentals</div>
+              <div class="mock-prog-rating">★ 4.8 (210) &nbsp; Design</div></div>
+            </div>
+            <div class="mock-program">
+              <div class="mock-prog-icon" style="background:#fff8f0;">🐍</div>
+              <div><div class="mock-prog-title">Python for Beginners</div>
+              <div class="mock-prog-rating">★ 4.7 (185) &nbsp; Dev</div></div>
+            </div>
+            <div class="mock-program">
+              <div class="mock-prog-icon" style="background:#f0fdfa;">📊</div>
+              <div><div class="mock-prog-title">Data Science Essentials</div>
+              <div class="mock-prog-rating">★ 4.6 (160) &nbsp; Data</div></div>
+            </div>
+            <div class="mock-program">
+              <div class="mock-prog-icon" style="background:#eef2ff;">📣</div>
+              <div><div class="mock-prog-title">Digital Marketing</div>
+              <div class="mock-prog-rating">★ 4.5 (140) &nbsp; Mktg</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:11px;color:#64748b;padding:8px 16px 12px;">
+        ✓ Live search with clear button<br/>
+        ✓ Category filter chips (5 cats)<br/>
+        ✓ 8 programs total<br/>
+        ✓ Result count updates live<br/>
+        ✓ Empty state when no results
+      </p>
+    </div>
+  </div>
+
+  <!-- PROGRAM DETAIL -->
+  <div class="screen-card">
+    <div class="screen-header" style="background:#7c3aed;">⑤ PROGRAM DETAIL</div>
+    <div class="screen-body">
+      <div class="phone">
+        <div class="phone-status"><span>9:41</span><span>●●●</span></div>
+        <div class="phone-content">
+          <div class="mock-hero">
+            <div class="mock-hero-back">← &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🔖</div>
+            <div class="mock-hero-title">Flutter Development<br/>Complete Guide</div>
+          </div>
+          <div class="mock-detail">
+            <div class="mock-meta">
+              <span class="mock-stars">★ 4.9</span>
+              <span style="font-size:10px;color:#1e293b;">(320)</span>
+              <span class="mock-cat">Development</span>
+            </div>
+            <div class="mock-desc">Learn Flutter from scratch and build beautiful cross-platform apps with real-world projects.</div>
+            <div class="mock-chips2">
+              <div class="mock-chip2">📖 32 Lessons</div>
+              <div class="mock-chip2">⏱ 20 Hours</div>
+              <div class="mock-chip2">🏆 Beginner</div>
+            </div>
+            <div class="mock-learn">What you'll learn</div>
+            <div class="mock-learn-item"><span class="mock-check">✅</span> Flutter Basics & Dart</div>
+            <div class="mock-learn-item"><span class="mock-check">✅</span> Widgets & State Management</div>
+            <div class="mock-learn-item"><span class="mock-check">✅</span> Navigation & Routing</div>
+            <div class="mock-learn-item"><span class="mock-check">✅</span> Firebase Integration</div>
+            <div class="mock-enrol">Enrol Now</div>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:11px;color:#64748b;padding:8px 16px 12px;">
+        ✓ Bookmark toggle with feedback<br/>
+        ✓ Enrol → button changes state<br/>
+        ✓ "Go Home" snackbar action<br/>
+        ✓ Full curriculum module list<br/>
+        ✓ Share button
+      </p>
+    </div>
+  </div>
+
+  <!-- NAVIGATION FLOW -->
+  <div class="screen-card">
+    <div class="screen-header" style="background:#1e293b;">⑥ NAVIGATION FLOW</div>
+    <div class="screen-body" style="padding:16px;">
+      <div class="nav-box" style="font-size:11px;">
+/login ──── Log In ──────────► /home
+  │                               │
+  └── Sign up ──► /signup    ┌────┴────────────────┐
+         │                   │                     │
+    Create Account      Tap program           "See all"
+         │                   │                     │
+         ▼                   ▼                     ▼
+       /home          /program-detail        /programs
+                             │                     │
+                        Enrol Now            Tap program
+                             │                     │
+                        Snackbar ◄──────────────────┘
+                       "Go Home" → /home
+
+Bottom Nav:
+  🏠 Home  |  🔍 Explore → /programs
+  📚 My Learning  |  👤 Profile → logout
+      </div>
+      <p style="font-size:11px;color:#64748b;padding:4px 0 4px;">
+        ✓ Fade transitions (login/home)<br/>
+        ✓ Slide transitions (programs/detail)<br/>
+        ✓ Back navigation throughout<br/>
+        ✓ Bottom nav between main screens<br/>
+        ✓ All routes pass data as arguments
+      </p>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- 3. DESIGN CHOICES -->
+<h2>3. Design Choices & Branding</h2>
+
+<h3>Color Palette</h3>
+<table>
+  <tr><th>Token</th><th>Color</th><th>Hex</th><th>Usage</th></tr>
+  <tr><td>Primary</td><td style="background:#4f46e5;color:#fff;font-weight:600;">Indigo</td><td>#4F46E5</td><td>Buttons, active states, headings</td></tr>
+  <tr><td>Accent</td><td style="background:#14b8a6;color:#fff;font-weight:600;">Teal</td><td>#14B8A6</td><td>Success states, gradient end, checkmarks</td></tr>
+  <tr><td>Background</td><td style="background:#f7f8fc;color:#1e293b;">Light Gray</td><td>#F7F8FC</td><td>App background</td></tr>
+  <tr><td>Surface</td><td style="background:#ffffff;color:#1e293b;">White</td><td>#FFFFFF</td><td>Cards, inputs</td></tr>
+  <tr><td>Text Primary</td><td style="background:#1e293b;color:#fff;">Dark Slate</td><td>#1E293B</td><td>Headings, body text</td></tr>
+  <tr><td>Star</td><td style="background:#fbbf24;color:#fff;">Amber</td><td>#FBBF24</td><td>Rating stars</td></tr>
+</table>
+
+<h3>Typography & Spacing</h3>
+<ul>
+  <li>Font: Segoe UI / System default — clean and readable on all platforms</li>
+  <li>Heading sizes: 28px (screen titles), 22px (greetings), 18px (section titles)</li>
+  <li>Consistent spacing tokens: xs=4, sm=8, md=16, lg=24, xl=32, xxl=48</li>
+  <li>Border radii: sm=10, md=14, lg=20, xl=28 — progressively rounded cards</li>
+</ul>
+
+<h3>Responsive Layout</h3>
+<ul>
+  <li>Mobile (&lt;600px): Single column, bottom navigation bar</li>
+  <li>Tablet (600–1023px): 2-column grid for program cards</li>
+  <li>Desktop (&gt;1023px): Split layouts (brand panel + form on Login/Signup), sidebar-style detail</li>
+</ul>
+
+
+<!-- 4. INTERACTIVE FEATURES -->
+<h2>4. Interactive Features Implemented</h2>
+
+<table>
+  <tr><th>Feature</th><th>Screen</th><th>Implementation</th></tr>
+  <tr><td>Form validation</td><td>Login, Sign Up</td><td>Flutter Form + TextFormField validators with error messages</td></tr>
+  <tr><td>Loading state</td><td>Login, Sign Up</td><td>CircularProgressIndicator replaces button text on submit</td></tr>
+  <tr><td>Forgot password</td><td>Login</td><td>AlertDialog with email input and success snackbar</td></tr>
+  <tr><td>Password visibility toggle</td><td>Login, Sign Up</td><td>obscureText toggled via setState</td></tr>
+  <tr><td>Animated page transitions</td><td>All screens</td><td>FadeTransition (login→home) and SlideTransition (→programs/detail)</td></tr>
+  <tr><td>Live search</td><td>Program List</td><td>onChanged filters _allPrograms list in real time</td></tr>
+  <tr><td>Category filter chips</td><td>Program List</td><td>AnimatedContainer chips update filtered list</td></tr>
+  <tr><td>Empty state</td><td>Program List</td><td>Shown when filtered result is empty</td></tr>
+  <tr><td>Notifications sheet</td><td>Home</td><td>showModalBottomSheet with 3 notification tiles</td></tr>
+  <tr><td>Profile sheet + logout</td><td>Home</td><td>Avatar tap → bottom sheet → logout navigates to /login</td></tr>
+  <tr><td>Bookmark toggle</td><td>Program Detail</td><td>setState toggles icon + snackbar feedback</td></tr>
+  <tr><td>Enrol button state</td><td>Program Detail</td><td>Button changes color and label after tap</td></tr>
+  <tr><td>Data passing between screens</td><td>All</td><td>Navigator arguments pass program Map to detail screen</td></tr>
+  <tr><td>Snackbar actions</td><td>Program Detail</td><td>FloatingSnackBar with "Go Home" action button</td></tr>
+</table>
+
+
+<!-- 5. GITHUB COMMITS -->
+<h2>5. GitHub Repository & Commits</h2>
+
+<p><strong>Repository:</strong> <a href="https://github.com/kutikantiyashwanth/LearnHub">github.com/kutikantiyashwanth/LearnHub</a></p>
+
+<div class="commit">
+  <div class="commit-hash">ea36266</div>
+  <div>
+    <div class="commit-msg">feat: add Sign Up screen with full form validation and navigation</div>
+    <div class="commit-sub">New signup_screen.dart · updated main.dart routes · login navigates to /signup</div>
+  </div>
+</div>
+<div class="commit">
+  <div class="commit-hash">6b025c8</div>
+  <div>
+    <div class="commit-msg">feat: Week 2 — interactive UI prototype with full navigation</div>
+    <div class="commit-sub">Login validation · Home notifications/profile · Program search/filter · Detail curriculum/enrol/bookmark</div>
+  </div>
+</div>
+<div class="commit">
+  <div class="commit-hash">32a31e7</div>
+  <div>
+    <div class="commit-msg">docs: add Week 1 App Proposal PDF</div>
+    <div class="commit-sub">915KB PDF with wireframes, user journeys, tech stack</div>
+  </div>
+</div>
+<div class="commit">
+  <div class="commit-hash">b4cac06</div>
+  <div>
+    <div class="commit-msg">docs: add Week 1 App Proposal and README</div>
+    <div class="commit-sub">Comprehensive README with navigation flow, folder structure, tech stack</div>
+  </div>
+</div>
+<div class="commit">
+  <div class="commit-hash">f0c7eae</div>
+  <div>
+    <div class="commit-msg">Initial commit: LearnHub Flutter App</div>
+    <div class="commit-sub">Full Flutter project structure with 4 screens, theme, responsive utils</div>
+  </div>
+</div>
+
+
+<!-- 6. HOW TO RUN -->
+<h2>6. How to Run the App</h2>
+
+<table>
+  <tr><th>Platform</th><th>Command</th></tr>
+  <tr><td>Web (Chrome)</td><td><code>flutter run -d chrome --release</code></td></tr>
+  <tr><td>Windows Desktop</td><td><code>flutter run -d windows</code></td></tr>
+  <tr><td>Android</td><td><code>flutter run -d android</code></td></tr>
+</table>
+
+<p><strong>Prerequisites:</strong> Flutter SDK 3.x installed and added to PATH</p>
+<p><strong>Install dependencies:</strong> <code>flutter pub get</code></p>
+
+
+<!-- 7. LEARNING OUTCOMES -->
+<h2>7. Week 2 Learning Outcomes Achieved</h2>
+
+<ul class="check-list">
+  <li>Translated all 4 Week 1 wireframes into functional Flutter UI screens</li>
+  <li>Implemented navigation between all screens using named routes with animated transitions</li>
+  <li>Applied consistent branding — indigo/teal color scheme, Material Design 3 tokens</li>
+  <li>Built structured, user-friendly mobile interfaces with proper responsive layouts</li>
+  <li>Gained hands-on experience with Flutter widgets: Form, TextFormField, BottomSheet, SnackBar, AlertDialog, GridView, ListView, SliverAppBar</li>
+  <li>Implemented real interactive patterns: live search, filter chips, progress indicators, state changes</li>
+  <li>Maintained clean Git history with meaningful commit messages</li>
+  <li>Delivered a working prototype running on Chrome web and Windows desktop</li>
+</ul>
+
+</div>
+
+<div class="footer">
+  LearnHub &nbsp;·&nbsp; Week 2 Submission &nbsp;·&nbsp;
+  github.com/kutikantiyashwanth/LearnHub &nbsp;·&nbsp; 2026
+</div>
+
+</body>
+</html>
